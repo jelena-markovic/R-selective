@@ -91,7 +91,25 @@ test_lee = function(seed=1, outfile=NULL, type="full", loss="ls", lambda_frac=0.
   return(list(pvalues=pvalues))
 }
 
-test_lee()
+cluster=TRUE
+
+if (cluster==TRUE){
+  args = commandArgs(trailingOnly=TRUE)
+  seed = round(as.numeric(args[1]))
+  type = toString(args[2])
+  rho = as.numeric(args[3])
+  outdir = paste("/scratch/users/jelenam/full/rho", toString(rho), "/", sep="")
+  label=paste("lee_", type,"_result_", sep="")
+  outfile = file.path(outdir, paste(sep="", label, toString(seed), "_rho_", toString(rho), ".rds"))
+
+} else{
+  seed=1
+  outdir=NULL
+  type="full"
+  rho=0.
+}
+
+test_lee(seed=seed, outfile=outfile, type=type, rho=rho)
 
 
 

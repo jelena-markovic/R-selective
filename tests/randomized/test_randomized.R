@@ -104,6 +104,25 @@ test_randomized = function(seed=1, outfile=NULL, type="partial", loss="ls", lamb
   return(list(pvalues=pvalues))
 }
 
-test_randomized(n=100, p=20, s=4)
+cluster=TRUE
+
+if (cluster==TRUE){
+  args = commandArgs(trailingOnly=TRUE)
+  seed = round(as.numeric(args[1]))
+  type = toString(args[2])
+  rho = as.numeric(args[3])
+  outdir = paste("/scratch/users/jelenam/full/rho", toString(rho), "/", sep="")
+  label=paste("lee_", type,"_result_", sep="")
+  outfile = file.path(outdir, paste(sep="", label, toString(seed), "_rho_", toString(rho), ".rds"))
+  
+} else{
+  seed=1
+  outdir=NULL
+  type="full"
+  rho=0.
+}
+
+test_randomized(seed=seed, outfile=outfile, type=type, rho=rho)
+
 
 
