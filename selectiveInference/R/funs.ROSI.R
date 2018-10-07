@@ -355,7 +355,7 @@ ROSI = function(X,
                 construct_ci=TRUE, 
                 debiasing_method=c("JM", "BN"),
                 verbose=FALSE,
-		level=0.9,
+		            level=0.9,
                 use_debiased=TRUE) {
   
   this.call = match.call()

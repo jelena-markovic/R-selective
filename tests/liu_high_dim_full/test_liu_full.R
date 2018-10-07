@@ -6,7 +6,7 @@ library(glmnet)
 # testing Liu et al type=full in high dimensional settings -- uses debiasing matrix
 
 test_liu_full = function(seed=1, outfile=NULL, family="gaussian", lambda_frac=0.7,
-                         nrep=50, n=200, p=500, s=20, rho=0.){
+                         nrep=10, n=200, p=800, s=20, rho=0.){
   
   snr = sqrt(2*log(p)/n)
   
@@ -62,7 +62,7 @@ test_liu_full = function(seed=1, outfile=NULL, family="gaussian", lambda_frac=0.
                family=family,
                solver="QP", 
                construct_ci=construct_ci, 
-               debiasing_method="JM",
+               debiasing_method="BN",
                verbose=TRUE)
     
     active_vars=PVS$active_set
