@@ -177,3 +177,17 @@ theoretical.lambda = function(X, loss="ls", sigma=1){
   lam = mean(empirical)*sigma/n
   return(lam)
 }
+
+
+compute_coverage = function(ci, beta){
+  nactive=length(beta)
+  coverage_vector = rep(0, nactive)
+  for (i in 1:nactive){
+    if(!is.na(ci[i,1]) & !is.na(ci[i,2])) {
+      if ((beta[i]>=ci[i,1]) && (beta[i]<=ci[i,2])){
+        coverage_vector[i]=1
+      } 
+    }
+  }
+  return(coverage_vector)
+}

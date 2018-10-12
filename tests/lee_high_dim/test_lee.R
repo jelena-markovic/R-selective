@@ -5,12 +5,10 @@ library(glmnet)
 # uses debiasing matrix for type=full
 
 test_lee = function(seed=1, outfile=NULL, type="full", loss="ls", lambda_frac=0.7,
-                    nrep=50, n=200, p=800, s=30, rho=0.){
+                    nrep=10, n=200, p=800, s=30, rho=0., construct_ci=TRUE){
   
   snr = sqrt(2*log(p)/n)
-  
   set.seed(seed)
-  construct_ci=TRUE
   penalty_factor = rep(1, p)
   
   pvalues = NULL
@@ -62,7 +60,7 @@ test_lee = function(seed=1, outfile=NULL, type="full", loss="ls", lambda_frac=0.
     }
     
     if (construct_ci && length(active_vars)>0){
-      sel_coverages=c(sel_coverages, selectiveInference:::compute_coverage(t(PVS$ci), beta[active_vars]))
+      sel_coverages=c(sel_coverages, selectiveInference:::compute_coverage(PVS$ci, beta[active_vars]))
       sel_lengths=c(sel_lengths, as.vector(PVS$ci[,2]-PVS$ci[,1]))
       print(c("selective coverage:", mean(sel_coverages)))
       print(c("selective length mean:", mean(sel_lengths)))
@@ -91,7 +89,25 @@ test_lee = function(seed=1, outfile=NULL, type="full", loss="ls", lambda_frac=0.
   return(list(pvalues=pvalues))
 }
 
-test_lee()
+cluster=TRUE
+
+if (cluster==TRUE){
+  args = commandArgs(trailingOnly=TRUE)
+  seed = round(as.numeric(args[1]))
+  type = toString(args[2])
+  rho = as.numeric(args[3])
+  outdir = paste("/scratch/users/jelenam/full/rho", toString(rho), "/", sep="")
+  label=paste("lee_", type,"_result_", sep="")
+  outfile = file.path(outdir, paste(sep="", label, toString(seed), "_rho_", toString(rho), ".rds"))
+
+} else{
+  seed=1
+  outdir=NULL
+  type="full"
+  rho=0.
+}
+
+test_lee(seed=seed, outfile=outfile, type=type, rho=rho)
 
 
 

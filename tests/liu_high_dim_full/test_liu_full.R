@@ -6,12 +6,10 @@ library(glmnet)
 # testing Liu et al type=full in high dimensional settings -- uses debiasing matrix
 
 test_liu_full = function(seed=1, outfile=NULL, family="gaussian", lambda_frac=0.7,
-                         nrep=50, n=200, p=500, s=20, rho=0.){
+                         nrep=10, n=200, p=800, s=20, rho=0., construct_ci=TRUE){
   
   snr = sqrt(2*log(p)/n)
-  
   set.seed(seed)
-  construct_ci=TRUE
   penalty_factor = rep(1, p)
   
   pvalues=NULL
@@ -123,5 +121,25 @@ test_liu_full = function(seed=1, outfile=NULL, family="gaussian", lambda_frac=0.
   return(list(pvalues=pvalues, naive_pvalues=naive_pvalues))
 }
 
-test_liu_full()
+cluster=FALSE
+
+if (cluster==TRUE){
+  args = commandArgs(trailingOnly=TRUE)
+  seed = round(as.numeric(args[1]))
+  type = toString(args[2])
+  rho = as.numeric(args[3])
+  outdir = paste("/scratch/users/jelenam/full/rho", toString(rho), "/", sep="")
+  label=paste("lee_", type,"_result_", sep="")
+  outfile = file.path(outdir, paste(sep="", label, toString(seed), "_rho_", toString(rho), ".rds"))
+  
+} else{
+  seed=1
+  outdir=NULL
+  rho=0.
+}
+
+test_liu_full(seed=seed, outfile=outfile, rho=rho)
+
+
+
 

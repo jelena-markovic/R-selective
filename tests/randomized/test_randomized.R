@@ -4,12 +4,10 @@ library(glmnet)
 
 
 test_randomized = function(seed=1, outfile=NULL, type="partial", loss="ls", lambda_frac=0.7,
-                           nrep=50, n=200, p=800, s=30, rho=0.){
+                           nrep=10, n=200, p=800, s=30, rho=0., construct_ci=TRUE){
   
   snr = sqrt(2*log(p)/n)
-  
   set.seed(seed)
-  construct_ci=TRUE
   penalty_factor = rep(1, p)
   
   pvalues = NULL
@@ -104,6 +102,25 @@ test_randomized = function(seed=1, outfile=NULL, type="partial", loss="ls", lamb
   return(list(pvalues=pvalues))
 }
 
-test_randomized(n=100, p=20, s=4)
+cluster=TRUE
+
+if (cluster==TRUE){
+  args = commandArgs(trailingOnly=TRUE)
+  seed = round(as.numeric(args[1]))
+  type = toString(args[2])
+  rho = as.numeric(args[3])
+  outdir = paste("/scratch/users/jelenam/full/rho", toString(rho), "/", sep="")
+  label=paste("lee_", type,"_result_", sep="")
+  outfile = file.path(outdir, paste(sep="", label, toString(seed), "_rho_", toString(rho), ".rds"))
+  
+} else{
+  seed=1
+  outdir=NULL
+  type="full"
+  rho=0.
+}
+
+test_randomized(seed=seed, outfile=outfile, type=type, rho=rho)
+
 
 

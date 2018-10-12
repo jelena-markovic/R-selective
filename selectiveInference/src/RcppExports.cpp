@@ -7,7 +7,7 @@ using namespace Rcpp;
 
 // solve_QP
 Rcpp::List solve_QP(Rcpp::NumericMatrix Sigma, double bound, int max_iter, Rcpp::NumericVector theta, Rcpp::NumericVector linear_func, Rcpp::NumericVector gradient, Rcpp::IntegerVector ever_active, Rcpp::IntegerVector nactive, double kkt_tol, double objective_tol, double parameter_tol, int max_active, int kkt_stop, int objective_stop, int param_stop);
-RcppExport SEXP _selectiveInference_solve_QP(SEXP SigmaSEXP, SEXP boundSEXP, SEXP max_iterSEXP, SEXP thetaSEXP, SEXP linear_funcSEXP, SEXP gradientSEXP, SEXP ever_activeSEXP, SEXP nactiveSEXP, SEXP kkt_tolSEXP, SEXP objective_tolSEXP, SEXP parameter_tolSEXP, SEXP max_activeSEXP, SEXP kkt_stopSEXP, SEXP objective_stopSEXP, SEXP param_stopSEXP) {
+RcppExport SEXP selectiveInference_solve_QP(SEXP SigmaSEXP, SEXP boundSEXP, SEXP max_iterSEXP, SEXP thetaSEXP, SEXP linear_funcSEXP, SEXP gradientSEXP, SEXP ever_activeSEXP, SEXP nactiveSEXP, SEXP kkt_tolSEXP, SEXP objective_tolSEXP, SEXP parameter_tolSEXP, SEXP max_activeSEXP, SEXP kkt_stopSEXP, SEXP objective_stopSEXP, SEXP param_stopSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -32,7 +32,7 @@ END_RCPP
 }
 // solve_QP_wide
 Rcpp::List solve_QP_wide(Rcpp::NumericMatrix X, Rcpp::NumericVector bound, double ridge_term, int max_iter, Rcpp::NumericVector theta, Rcpp::NumericVector linear_func, Rcpp::NumericVector gradient, Rcpp::NumericVector X_theta, Rcpp::IntegerVector ever_active, Rcpp::IntegerVector nactive, double kkt_tol, double objective_tol, double parameter_tol, int max_active, int kkt_stop, int objective_stop, int param_stop);
-RcppExport SEXP _selectiveInference_solve_QP_wide(SEXP XSEXP, SEXP boundSEXP, SEXP ridge_termSEXP, SEXP max_iterSEXP, SEXP thetaSEXP, SEXP linear_funcSEXP, SEXP gradientSEXP, SEXP X_thetaSEXP, SEXP ever_activeSEXP, SEXP nactiveSEXP, SEXP kkt_tolSEXP, SEXP objective_tolSEXP, SEXP parameter_tolSEXP, SEXP max_activeSEXP, SEXP kkt_stopSEXP, SEXP objective_stopSEXP, SEXP param_stopSEXP) {
+RcppExport SEXP selectiveInference_solve_QP_wide(SEXP XSEXP, SEXP boundSEXP, SEXP ridge_termSEXP, SEXP max_iterSEXP, SEXP thetaSEXP, SEXP linear_funcSEXP, SEXP gradientSEXP, SEXP X_thetaSEXP, SEXP ever_activeSEXP, SEXP nactiveSEXP, SEXP kkt_tolSEXP, SEXP objective_tolSEXP, SEXP parameter_tolSEXP, SEXP max_activeSEXP, SEXP kkt_stopSEXP, SEXP objective_stopSEXP, SEXP param_stopSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -59,7 +59,7 @@ END_RCPP
 }
 // update1_
 Rcpp::List update1_(Rcpp::NumericMatrix Q2, Rcpp::NumericVector w, int m, int k);
-RcppExport SEXP _selectiveInference_update1_(SEXP Q2SEXP, SEXP wSEXP, SEXP mSEXP, SEXP kSEXP) {
+RcppExport SEXP selectiveInference_update1_(SEXP Q2SEXP, SEXP wSEXP, SEXP mSEXP, SEXP kSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -73,7 +73,7 @@ END_RCPP
 }
 // downdate1_
 Rcpp::List downdate1_(Rcpp::NumericMatrix Q1, Rcpp::NumericMatrix R, int j0, int m, int n);
-RcppExport SEXP _selectiveInference_downdate1_(SEXP Q1SEXP, SEXP RSEXP, SEXP j0SEXP, SEXP mSEXP, SEXP nSEXP) {
+RcppExport SEXP selectiveInference_downdate1_(SEXP Q1SEXP, SEXP RSEXP, SEXP j0SEXP, SEXP mSEXP, SEXP nSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -88,7 +88,7 @@ END_RCPP
 }
 // log_density_gaussian_
 Rcpp::NumericVector log_density_gaussian_(double noise_scale, Rcpp::NumericMatrix internal_linear, Rcpp::NumericMatrix internal_state, Rcpp::NumericMatrix optimization_linear, Rcpp::NumericMatrix optimization_state, Rcpp::NumericVector offset);
-RcppExport SEXP _selectiveInference_log_density_gaussian_(SEXP noise_scaleSEXP, SEXP internal_linearSEXP, SEXP internal_stateSEXP, SEXP optimization_linearSEXP, SEXP optimization_stateSEXP, SEXP offsetSEXP) {
+RcppExport SEXP selectiveInference_log_density_gaussian_(SEXP noise_scaleSEXP, SEXP internal_linearSEXP, SEXP internal_stateSEXP, SEXP optimization_linearSEXP, SEXP optimization_stateSEXP, SEXP offsetSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -104,7 +104,7 @@ END_RCPP
 }
 // log_density_gaussian_conditional_
 Rcpp::NumericVector log_density_gaussian_conditional_(double noise_scale, Rcpp::NumericMatrix optimization_linear, Rcpp::NumericMatrix optimization_state, Rcpp::NumericVector offset);
-RcppExport SEXP _selectiveInference_log_density_gaussian_conditional_(SEXP noise_scaleSEXP, SEXP optimization_linearSEXP, SEXP optimization_stateSEXP, SEXP offsetSEXP) {
+RcppExport SEXP selectiveInference_log_density_gaussian_conditional_(SEXP noise_scaleSEXP, SEXP optimization_linearSEXP, SEXP optimization_stateSEXP, SEXP offsetSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -118,7 +118,7 @@ END_RCPP
 }
 // log_density_laplace_
 Rcpp::NumericVector log_density_laplace_(double noise_scale, Rcpp::NumericMatrix internal_linear, Rcpp::NumericMatrix internal_state, Rcpp::NumericMatrix optimization_linear, Rcpp::NumericMatrix optimization_state, Rcpp::NumericVector offset);
-RcppExport SEXP _selectiveInference_log_density_laplace_(SEXP noise_scaleSEXP, SEXP internal_linearSEXP, SEXP internal_stateSEXP, SEXP optimization_linearSEXP, SEXP optimization_stateSEXP, SEXP offsetSEXP) {
+RcppExport SEXP selectiveInference_log_density_laplace_(SEXP noise_scaleSEXP, SEXP internal_linearSEXP, SEXP internal_stateSEXP, SEXP optimization_linearSEXP, SEXP optimization_stateSEXP, SEXP offsetSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -134,7 +134,7 @@ END_RCPP
 }
 // log_density_laplace_conditional_
 Rcpp::NumericVector log_density_laplace_conditional_(double noise_scale, Rcpp::NumericMatrix optimization_linear, Rcpp::NumericMatrix optimization_state, Rcpp::NumericVector offset);
-RcppExport SEXP _selectiveInference_log_density_laplace_conditional_(SEXP noise_scaleSEXP, SEXP optimization_linearSEXP, SEXP optimization_stateSEXP, SEXP offsetSEXP) {
+RcppExport SEXP selectiveInference_log_density_laplace_conditional_(SEXP noise_scaleSEXP, SEXP optimization_linearSEXP, SEXP optimization_stateSEXP, SEXP offsetSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -148,7 +148,7 @@ END_RCPP
 }
 // solve_barrier_
 Rcpp::List solve_barrier_(Rcpp::NumericVector conjugate_arg, Rcpp::NumericMatrix precision, Rcpp::NumericVector feasible_point, int max_iter, int min_iter, double value_tol, double initial_step);
-RcppExport SEXP _selectiveInference_solve_barrier_(SEXP conjugate_argSEXP, SEXP precisionSEXP, SEXP feasible_pointSEXP, SEXP max_iterSEXP, SEXP min_iterSEXP, SEXP value_tolSEXP, SEXP initial_stepSEXP) {
+RcppExport SEXP selectiveInference_solve_barrier_(SEXP conjugate_argSEXP, SEXP precisionSEXP, SEXP feasible_pointSEXP, SEXP max_iterSEXP, SEXP min_iterSEXP, SEXP value_tolSEXP, SEXP initial_stepSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
@@ -162,22 +162,4 @@ BEGIN_RCPP
     rcpp_result_gen = Rcpp::wrap(solve_barrier_(conjugate_arg, precision, feasible_point, max_iter, min_iter, value_tol, initial_step));
     return rcpp_result_gen;
 END_RCPP
-}
-
-static const R_CallMethodDef CallEntries[] = {
-    {"_selectiveInference_solve_QP", (DL_FUNC) &_selectiveInference_solve_QP, 15},
-    {"_selectiveInference_solve_QP_wide", (DL_FUNC) &_selectiveInference_solve_QP_wide, 17},
-    {"_selectiveInference_update1_", (DL_FUNC) &_selectiveInference_update1_, 4},
-    {"_selectiveInference_downdate1_", (DL_FUNC) &_selectiveInference_downdate1_, 5},
-    {"_selectiveInference_log_density_gaussian_", (DL_FUNC) &_selectiveInference_log_density_gaussian_, 6},
-    {"_selectiveInference_log_density_gaussian_conditional_", (DL_FUNC) &_selectiveInference_log_density_gaussian_conditional_, 4},
-    {"_selectiveInference_log_density_laplace_", (DL_FUNC) &_selectiveInference_log_density_laplace_, 6},
-    {"_selectiveInference_log_density_laplace_conditional_", (DL_FUNC) &_selectiveInference_log_density_laplace_conditional_, 4},
-    {"_selectiveInference_solve_barrier_", (DL_FUNC) &_selectiveInference_solve_barrier_, 7},
-    {NULL, NULL, 0}
-};
-
-RcppExport void R_init_selectiveInference(DllInfo *dll) {
-    R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
-    R_useDynamicSymbols(dll, FALSE);
 }

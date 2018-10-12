@@ -257,7 +257,7 @@ fixedLassoInf <- function(x, y, beta,
     a = TG.interval.base(limits.info, 
                          alpha=alpha,
                          gridrange=gridrange,
-			 flip=(sign_vars[j]==-1),
+			                   flip=(sign_vars[j]==-1),
                          bits=bits)
     ci[j,] = (a$int-null_value[j]) * mj # Unstandardize (mult by norm of vj)
     tailarea[j,] = a$tailarea

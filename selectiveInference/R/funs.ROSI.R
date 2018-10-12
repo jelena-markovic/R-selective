@@ -274,13 +274,16 @@ approximate_BN = function(X, active_set){
   nactive=length(active_set)
   
   svdX = svd(X)
-  inv = solve(svdX$v %*% diag(svdX$d^2) %*% t(svdX$v))
+  #inv = solve(svdX$v %*% diag(svdX$d^2) %*% t(svdX$v))
+  #inv = solve(svdX$u %*% diag(svdX$d^2) %*% t(svdX$u))
+  inv = solve(X %*% t(X))
   D = matrix(rep(0, nactive*p), nrow=nactive, ncol=p)
   for (i in 1:nactive){
     var = active_set[i]
     D[i, var] = 1/(t(X[,var]) %*% inv %*% X[,var])
   }
-  M_active = D %*% svdX$v %*% t(svdX$v) # last two terms: projection onto row(X)
+  #M_active = D %*% svdX$v %*% t(svdX$v) # last two terms: projection onto row(X)
+  M_active = D %*% t(X) %*% inv
   return(M_active)
 }
 
@@ -298,9 +301,13 @@ setup_Qbeta = function(X,
   fit = X%*%soln
   if (loss=="ls"){
     W = rep(1,n)
+    residuals = y-fit
+    diagonal = rep(1,n)
   }
   if (loss=="logit"){
     W = exp(fit/2)/(1+exp(fit))  ## sqrt(pi*(1-pi))
+    residuals = y-(exp(fit)/(1+exp(fit)))
+    diagonal = exp(fit/2)/(1+exp(fit))
   } 
   W_root=diag(as.vector(W))
   
@@ -327,10 +334,13 @@ setup_Qbeta = function(X,
     }
       
     G = gradient(X, y, soln, loss=loss)
-    beta_barE = soln[active_set] - M_active %*% G    
+  
+    beta_barE = soln[active_set] + M_active %*% G   
+    #beta_barE = soln[active_set] + M_active %*% diag(as.vector(1/diagonal)) %*% residuals
 
     M2 = M_active %*% t(W_root %*% X)
     QiE = M2 %*% t(M2) # size |E|\times |E|
+    #QiE = M_active %*% t(M_active) 
     QE = hessian_active(X, soln, loss, active_set)
     Q_sq = W_root %*% X
     Qbeta_bar = t(QE)%*%soln[active_set] - G
@@ -519,20 +529,7 @@ print.ROSI <- function(x, ...) {
 # Some little used functions -- not exported
 
 
-compute_coverage = function(ci, beta){
-  print(ci)
-  print(beta) 
-  nactive=length(beta)
-  coverage_vector = rep(NA, nactive)
-  for (i in 1:nactive){
-  if(!is.na(ci[i,1]) & !is.na(ci[i,2])) {
-    if (beta[i]>=ci[i,1] && beta[i]<=ci[i,2]){
-      coverage_vector[i]=1
-    } 
-  }
-  }
-  return(coverage_vector)
-}
+
 
 loss_label = function(family) {
   if (family=="gaussian"){
